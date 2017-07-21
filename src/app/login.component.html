@@ -1,0 +1,80 @@
+<div class="row" *ngIf='loginFlag'>
+  <div class="col-sm-6">
+     <div class="panel panel-primary">
+        <div class="panel-heading">
+          {{signup}} 
+        </div>
+        <div class="panel-body">
+          <form #signupForm="ngForm" name="signupForm" (ngSubmit)="onRegister(model.name, model.password1)">
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input type="text" class="form-control" id="name" required minlength="4" name="name" [(ngModel)]="model.name">
+              <div *ngIf="formErrors.name" class="alert alert-danger">
+                {{ formErrors.name }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="optradio">Gender:</label>
+              <div class="radio">
+                <label><input type="radio" name="optradio" required >Male</label>
+                <label><input type="radio" name="optradio" required >Female</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email address:</label>
+              <input type="email" class="form-control" id="email" name="email" required [(ngModel)]="model.email"  pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+               <div *ngIf="formErrors.email" class="alert alert-danger">
+                {{ formErrors.email }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="pwd1">Password:</label>
+              <input type="password" class="form-control" id="pwd1" name='password1' required pattern="[a-zA-Z ]*" [(ngModel)]="model.password1">
+              <div *ngIf="formErrors.password1" class="alert alert-danger">
+                {{ formErrors.password1 }}
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid">Submit</button> <button type="reset" class="btn btn-primary">Reset</button>
+          </form>
+        </div>
+     </div>  
+  </div>
+  <div class="col-sm-6">
+   <div class="panel panel-primary">
+        <div class="panel-heading">
+          {{login}}
+        </div>
+        <div class="panel-body">
+          <div class="alert alert-danger" *ngIf="authFlag">
+              <strong>Login failed!</strong> Invalid user name.
+          </div>
+          <form #loginForm="ngForm" name="loginForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="name">Username:</label>
+              <input type="text" class="form-control" name="username" [(ngModel)]="model.username" required #username="ngModel">
+              <div *ngIf="username.errors && (username.dirty || username.touched)"
+                   class="alert alert-danger">
+                  <div [hidden]="!username.errors.required">
+                    Name is required
+                  </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="loginPassword">Password:</label>
+              <input type="password" class="form-control" id="loginPassword" name="loginPassword" [(ngModel)]="model.loginPassword" required #loginPassword="ngModel" >
+              <div *ngIf="loginPassword.errors && (loginPassword.dirty || loginPassword.touched)"
+                   class="alert alert-danger">
+                  <div [hidden]="!loginPassword.errors.required">
+                    Password is required
+                  </div>
+              </div>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox"> Remember me</label>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Submit</button> <button type="reset" class="btn btn-primary">Reset</button>
+          </form>
+        </div>
+     </div>  
+  </div>
+</div>

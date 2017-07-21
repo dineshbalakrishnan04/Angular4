@@ -1,0 +1,39 @@
+<div class="row" *ngIf='dashboardView'>
+  <div class="col-sm-12">
+     <div class="panel panel-primary">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-sm-11"> {{dashboard}} </div>
+            <div class="col-sm-1"> <button class="btn btn-default" (click)="onLogout()">Logout</button> </div>
+          </div>  
+        </div>
+        <div class="panel-body">
+          <form #searchForm="ngForm" (ngSubmit)="onSearch(searchmodel.value)">
+            <div class="row">
+              <div class="col-sm-9">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="name" required minlength="4" name="name" [(ngModel)]="searchmodel.value" placeholder="Search for your pictures">
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <button type="submit" class="btn btn-primary">Search....</button> <button type="reset" class="btn btn-primary">Reset</button>
+              </div>  
+            </div>  
+          </form>
+          <div class="row" *ngIf="picturesList">
+            <div class="col-md-4" *ngFor="let picture of picturesList.photos.photo">
+
+              <div class="thumbnail">
+                <a href="{{picture.url_z_cdn}}">
+                  <img src="{{picture.url_z_cdn}}" alt="Lights" style="width:100%">
+                  <div class="caption">
+                    <p>{{picture.description._content}}</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>  
+        </div>
+     </div>  
+  </div>
+</div>
